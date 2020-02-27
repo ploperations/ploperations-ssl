@@ -1,3 +1,5 @@
+# @summary Deploy SSL certificates and keys in a couple of common formats
+#
 # Deploy SSL certificates and keys in a couple of common formats
 #
 # See the README for information about how to store certificates and keys for
@@ -5,11 +7,35 @@
 #
 # This deploys:
 #
-#   * `${key_dir}/${key_name}.key`
-#   * `${cert_dir}/${key_name}.crt`
-#   * `${cert_dir}/${key_name}_inter.crt` — the intermediate certificate(s)
-#   * `${cert_dir}/${key_name}_combined.crt` — the primary certificate
+# - `${key_dir}/${key_name}.key`
+# - `${cert_dir}/${key_name}.crt`
+# - `${cert_dir}/${key_name}_inter.crt` — the intermediate certificate(s)
+# - `${cert_dir}/${key_name}_combined.crt` — the primary certificate
 #     followed by the intermediate certificate(s)
+#
+# @example
+#   ssl::cert { 'www.example.com': }
+#
+# @param [String[1]] key_name
+#   The name of the certificate
+#
+# @param [Optional[String[1]]] cert_dir
+#   The directory that certs are stored in. If no values is provided then the
+#   value from $ssl::cert_dir is used.
+#
+# @param [Optional[String[1]]] key_dir
+#   The directory that certificate keys are stored in. If no values is provided
+#   then the value from $ssl::key_dir is used.
+#
+# @param [String[1]] user
+#   The user to set as the owner of the generated files
+#
+# @param [String[1]] group
+#   THe group to set as the owner of the generated files
+#
+# @param [String[1]] mode
+#   The file mode to be set on each generated file
+#
 define ssl::cert (
   String[1]           $key_name = $title,
   Optional[String[1]] $cert_dir = undef,

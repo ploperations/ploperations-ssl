@@ -38,6 +38,7 @@ end
 
 RSpec.configure do |c|
   c.default_facts = default_facts
+  c.default_facter_version = '3.14.0'
   c.before :each do
     # set to strictest setting for testing
     # by default Puppet runs at warning level

@@ -30,7 +30,7 @@ describe 'ssl::cert' do
 
       it { is_expected.to compile }
       it { is_expected.to contain_class('ssl') }
-
+      puts os_facts
       case os_facts[:os]['family']
       when 'RedHat'
         it { is_expected.to contain_file('/etc/pki/private/www.example.com.key').with_ensure('file') }

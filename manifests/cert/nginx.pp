@@ -1,9 +1,30 @@
-# DEPRECATED
+# @summary DEPRECATED
 #
 # This is only here to simplify some of our legacy code.
 #
 # We recommend using `ssl::cert` and configuring NGINX to use the
 # `_combined.crt` file instead of using this resource.
+#
+# @param [String[1]] key_name
+#   The name of the certificate
+#
+# @param [Optional[String[1]]] cert_dir
+#   The directory that certs are stored in. If no values is provided then the
+#   value from $ssl::cert_dir is used.
+#
+# @param [Optional[String[1]]] key_dir
+#   The directory that certificate keys are stored in. If no values is provided
+#   then the value from $ssl::key_dir is used.
+#
+# @param [String[1]] user
+#   The user to set as the owner of the generated files
+#
+# @param [String[1]] group
+#   THe group to set as the owner of the generated files
+#
+# @param [String[1]] mode
+#   The file mode to be set on each generated file
+#
 define ssl::cert::nginx (
   String[1]           $key_name = $title,
   Optional[String[1]] $cert_dir = undef,
@@ -15,7 +36,7 @@ define ssl::cert::nginx (
   include ssl
 
   $_cert_dir = pick($cert_dir, $ssl::cert_dir)
-  $_key_dir = pick($_key_dir, $ssl::key_dir)
+  $_key_dir = pick($key_dir, $ssl::key_dir)
 
   file {
     default:

@@ -1,24 +1,33 @@
-# Maintain SSL certs and private keys
+# @summary Maintain SSL certs and private keys
 #
 # You can store SSL certs in your control repo. Simply create a profile and put
 # the certs in its files directory. (Note that you don't actually have to create
 # a manifest for it.)
 #
-# Suppose you wanted to use profile::ssl. Set `cert_source => 'profile/ssl'`,
+# Suppose you wanted to use `profile::ssl`. Set `cert_source => 'profile/ssl'`,
 # and add cert files in site/profile/files/ssl/.
 #
 # You can also store SSL keys. These should be encrypted, and the simplest
 # solution for that is hiera-eyaml. Simply add keys to the keys parameter on
 # this class in hiera. For example:
 #
-#     ssl::keys:
-#       'puppet.com': ENC[PKCS7,MIIH...
-#       'forge.puppet.com': ENC[PKCS7,MIIH...
+# ```yaml
+# ssl::cert_source: 'profile/ssl'
+# ssl::keys:
+#   'puppet.com': ENC[PKCS7,MIIH...
+#   'forge.puppet.com': ENC[PKCS7,MIIH...
+# ```
 #
-# The two most important parameters are:
 #
-#   $cert_source - Where to find cert files with the file() function.
-#   $keys - Private keys indexed by key names.
+# @param [String[1]] cert_source
+#   Where to find cert files with the file() function.
+#
+# @param [Hash[String[1], String[1]]] keys
+#   Private keys indexed by key names.
+#
+# @param [Boolean] manage_ssl_dir
+#   Enable or disable a file resource for the ssl directory
+#
 class ssl (
   String[1]                  $cert_source,
   Hash[String[1], String[1]] $keys           = {},

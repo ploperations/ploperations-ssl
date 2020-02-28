@@ -1,3 +1,5 @@
+# @summary Determine default parameters for ssl
+#
 # Determine default parameters for ssl
 class ssl::params {
   $ssl_dir = $facts['os']['family'] ? {

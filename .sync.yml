@@ -2,7 +2,7 @@
 .gitlab-ci.yml:
   delete: true
 .travis.yml:
-  dist: 'trusty'
+  dist: 'bionic'
 appveyor.yml:
   delete: true
 Gemfile:

@@ -1,6 +1,6 @@
 {
   "name": "ploperations-ssl",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "author": "ploperations",
   "summary": "Manage SSL certificates and keys",
   "license": "Apache-2.0",

@@ -1,6 +1,8 @@
 ---
 .gitlab-ci.yml:
   delete: true
+.travis.yml:
+  dist: 'trusty'
 appveyor.yml:
   delete: true
 Gemfile:
@@ -18,4 +20,4 @@ spec/spec_helper.rb:
   mock_with: ':rspec'
   coverage_report: true
   default_facter_version: '3.14.0'
-  
+

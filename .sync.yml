@@ -1,6 +1,8 @@
 ---
 .gitlab-ci.yml:
   delete: true
+.travis.yml:
+  dist: 'bionic'
 appveyor.yml:
   delete: true
 Gemfile:
@@ -17,4 +19,4 @@ Rakefile:
 spec/spec_helper.rb:
   mock_with: ':rspec'
   coverage_report: true
-  
+

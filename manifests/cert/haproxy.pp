@@ -49,9 +49,9 @@ define ssl::cert::haproxy (
     group   => $group,
     mode    => $mode,
     content => ssl::pem::join([
-      file("${ssl::cert_source}/${key_name}.crt"),
-      $ssl::keys[$key_name],
-      file("${ssl::cert_source}/${key_name}_inter.crt"),
+        file("${ssl::cert_source}/${key_name}.crt"),
+        $ssl::keys[$key_name],
+        file("${ssl::cert_source}/${key_name}_inter.crt"),
     ]),
   }
 }

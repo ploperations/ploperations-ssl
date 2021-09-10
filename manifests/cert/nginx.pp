@@ -44,19 +44,19 @@ define ssl::cert::nginx (
       owner  => $user,
       group  => $group,
       mode   => $mode,
-    ;
+      ;
     # Key
     "${_key_dir}/${key_name}.key":
       mode    => '0400',
       # https://github.com/voxpupuli/hiera-eyaml/issues/264: eyaml drops newline
       content => ssl::ensure_newline($ssl::keys[$key_name]),
-    ;
+      ;
     # Combined cert and intermediate cert
     "${_cert_dir}/${key_name}.crt":
       content => ssl::pem::join([
-        file("${ssl::cert_source}/${key_name}.crt"),
-        file("${ssl::cert_source}/${key_name}_inter.crt"),
+          file("${ssl::cert_source}/${key_name}.crt"),
+          file("${ssl::cert_source}/${key_name}_inter.crt"),
       ]),
-    ;
+      ;
   }
 }

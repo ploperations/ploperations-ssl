@@ -332,7 +332,7 @@ file { '/tmp/www.example.com.crt':
 
 Ensure there's a trailing newline
 
-Returns: `Any`
+Returns: `String` Returns a string that ends with a newline (`\n`)
 
 ##### Examples
 
@@ -375,7 +375,7 @@ file { '/tmp/www.example.com_combined.crt":
 
 Join certs and keys into a single PEM. Ensure the correct newlines exist.
 
-Returns: `Any`
+Returns: `String` Returns a string representing the combined certificates.
 
 ##### Examples
 

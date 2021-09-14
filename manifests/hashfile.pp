@@ -19,6 +19,6 @@ define ssl::hashfile (
     command => "ln -s ${certdir}/${filename} ${certdir}/$(openssl x509 -noout -hash -in ${certdir}/${filename}).0",
     unless  => "test -f ${certdir}/$(openssl x509 -noout -hash -in ${certdir}/${filename}).0",
     require => File["${certdir}/${filename}"],
-    path    => [ '/bin', '/usr/bin', '/usr/local/bin' ],
+    path    => ['/bin', '/usr/bin', '/usr/local/bin'],
   }
 }

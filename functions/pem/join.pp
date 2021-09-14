@@ -21,4 +21,3 @@
 function ssl::pem::join(Array[String[0]] $items) >> String {
   $items.map |$item| { ssl::ensure_newline($item) }.join('')
 }
-

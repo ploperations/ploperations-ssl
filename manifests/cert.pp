@@ -55,27 +55,27 @@ define ssl::cert (
       owner  => $user,
       group  => $group,
       mode   => $mode,
-    ;
+      ;
     # Key
     "${_key_dir}/${key_name}.key":
       mode    => '0400',
       # https://github.com/voxpupuli/hiera-eyaml/issues/264: eyaml drops newline
       content => ssl::ensure_newline($ssl::keys[$key_name]),
-    ;
+      ;
     # Plain cert
     "${_cert_dir}/${key_name}.crt":
       content => file("${ssl::cert_source}/${key_name}.crt"),
-    ;
+      ;
     # Intermediate cert
     "${_cert_dir}/${key_name}_inter.crt":
       content => file("${ssl::cert_source}/${key_name}_inter.crt"),
-    ;
+      ;
     # Combined cert and intermediate cert
     "${_cert_dir}/${key_name}_combined.crt":
       content => ssl::pem::join([
-        file("${ssl::cert_source}/${key_name}.crt"),
-        file("${ssl::cert_source}/${key_name}_inter.crt"),
+          file("${ssl::cert_source}/${key_name}.crt"),
+          file("${ssl::cert_source}/${key_name}_inter.crt"),
       ]),
-    ;
+      ;
   }
 }

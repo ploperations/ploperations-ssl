@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [2.0.0](https://github.com/ploperations/ploperations-ssl/tree/2.0.0) (2021-09-18)
+
+[Full Changelog](https://github.com/ploperations/ploperations-ssl/compare/1.0.0...2.0.0)
+
+### Changed
+
+- Dropped old Puppet versions, added new ones, sync to current standards [\#6](https://github.com/ploperations/ploperations-ssl/pull/6) ([genebean](https://github.com/genebean))
+
 ## [1.0.0](https://github.com/ploperations/ploperations-ssl/tree/1.0.0) (2020-03-02)
 
 [Full Changelog](https://github.com/ploperations/ploperations-ssl/compare/132268db8eee957e11a9ac079f76386491065fd1...1.0.0)

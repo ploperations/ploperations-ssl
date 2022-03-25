@@ -23,6 +23,68 @@ describe 'ssl' do
         }
       end
 
+      context 'with custom group_name' do
+        context 'managed by the module' do
+          let(:params) do
+            {
+              'cert_source'  => 'profile/ssl',
+              'group_name'   => 'custom-group',
+              'keys'         => {
+                'www.example.com' => 'some-private-key-data',
+              },
+            }
+          end
+
+          it { is_expected.to contain_group('custom-group') }
+
+          case os_facts[:os]['family']
+          when 'RedHat'
+            it { is_expected.to contain_file('/etc/pki/private').with_ensure('directory').with_group('custom-group') }
+          else
+            it { is_expected.to contain_file('/etc/ssl/private').with_ensure('directory').with_group('custom-group') }
+          end
+        end
+
+        context 'managed outside the module' do
+          let(:params) do
+            {
+              'cert_source'  => 'profile/ssl',
+              'group_name'   => 'custom-group',
+              'keys'         => {
+                'www.example.com' => 'some-private-key-data',
+              },
+              'manage_group' => false,
+            }
+          end
+
+          let(:pre_condition) { '@group { "custom-group": ensure => present, }' }
+
+          it { is_expected.to contain_group('custom-group') }
+
+          case os_facts[:os]['family']
+          when 'RedHat'
+            it { is_expected.to contain_file('/etc/pki/private').with_ensure('directory').with_group('custom-group') }
+          else
+            it { is_expected.to contain_file('/etc/ssl/private').with_ensure('directory').with_group('custom-group') }
+          end
+        end
+
+        context 'not declared in the catalog should fail' do
+          let(:params) do
+            {
+              'cert_source'  => 'profile/ssl',
+              'group_name'   => 'custom-group',
+              'keys'         => {
+                'www.example.com' => 'some-private-key-data',
+              },
+              'manage_group' => false,
+            }
+          end
+
+          it { is_expected.not_to compile }
+        end
+      end
+
       it { is_expected.to compile }
       it { is_expected.to contain_class('ssl::params') }
       it { is_expected.to contain_group('ssl-cert') }

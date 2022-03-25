@@ -48,7 +48,9 @@ ssl::keys:
 The following parameters are available in the `ssl` class:
 
 * [`cert_source`](#cert_source)
+* [`group_name`](#group_name)
 * [`keys`](#keys)
+* [`manage_group`](#manage_group)
 * [`manage_ssl_dir`](#manage_ssl_dir)
 
 ##### <a name="cert_source"></a>`cert_source`
@@ -57,6 +59,15 @@ Data type: `String[1]`
 
 Where to find cert files with the file() function.
 
+##### <a name="group_name"></a>`group_name`
+
+Data type: `Optional[String[1]]`
+
+The name of the group used for the `key_dir` permission.
+The group will be realized if the catalog contains a group virtual resource where the title matches this parameter.
+
+Default value: `'ssl-cert'`
+
 ##### <a name="keys"></a>`keys`
 
 Data type: `Hash[String[1], String[1]]`
@@ -64,6 +75,14 @@ Data type: `Hash[String[1], String[1]]`
 Private keys indexed by key names.
 
 Default value: `{}`
+
+##### <a name="manage_group"></a>`manage_group`
+
+Data type: `Boolean`
+
+Whether to manage attributes of the `group`.
+
+Default value: ``true``
 
 ##### <a name="manage_ssl_dir"></a>`manage_ssl_dir`
 

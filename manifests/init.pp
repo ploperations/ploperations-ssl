@@ -22,15 +22,24 @@
 # @param [String[1]] cert_source
 #   Where to find cert files with the file() function.
 #
+# @param [Optional[String[1]]] group_name
+#   The name of the group used for the `key_dir` permission.
+#   The group will be realized if the catalog contains a group virtual resource where the title matches this parameter.
+#
 # @param [Hash[String[1], String[1]]] keys
 #   Private keys indexed by key names.
+#
+# @param [Boolean] manage_group
+#   Whether to manage attributes of the `group`.
 #
 # @param [Boolean] manage_ssl_dir
 #   Enable or disable a file resource for the ssl directory
 #
 class ssl (
   String[1]                  $cert_source,
+  Optional[String[1]]        $group_name     = 'ssl-cert',
   Hash[String[1], String[1]] $keys           = {},
+  Boolean                    $manage_group   = true,
   Boolean                    $manage_ssl_dir = true,
 ) {
   # This doesn't quite follow the params pattern. Unfortunately, we have code
@@ -60,14 +69,19 @@ class ssl (
     mode   => '0755',
   }
 
-  group { 'ssl-cert':
-    ensure => present,
+  if $manage_group {
+    @group { $group_name:
+      ensure => present,
+    }
   }
 
+  Group <| title == $group_name |>
+
   file { $key_dir:
-    ensure => directory,
-    owner  => 'root',
-    group  => 'ssl-cert',
-    mode   => '0750',
+    ensure  => directory,
+    owner   => 'root',
+    group   => $group_name,
+    mode    => '0750',
+    require => Group[$group_name],
   }
 }
